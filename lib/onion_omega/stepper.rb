@@ -1,12 +1,17 @@
 require_relative './gpio'
 
 class OnionOmega::Stepper
-  def initialize(max_steps:, pins: [0, 1, 2, 3], file: "current_step")
+  def initialize(
+    max_steps:,
+    pins: [0, 1, 2, 3],
+    persist_to_file: nil,
+    gpio: OnionOmega::GPIO.new(dry_mode: true)
+  )
     @max_steps = max_steps
     @pins = pins
-    @file = file
-    @current_step = File.exists?(@file) ? File.read(@file).to_i : 0
-    @gpio = OnionOmega::GPIO.new(dry_mode: true)
+    @file = persist_to_file
+    @current_step = (@file && File.exists?(@file)) ? File.read(@file).to_i : 0
+    @gpio = gpio
     initialise_gpio
   end
 
@@ -46,7 +51,7 @@ class OnionOmega::Stepper
     end
     set_pins(*new_pins)
     @current_step += increment
-    File.write @file, @current_step
+    File.write @file, @current_step if @file
   end
 
   def set_pins(*pins)
