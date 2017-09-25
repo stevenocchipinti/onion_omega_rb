@@ -2,12 +2,12 @@ require_relative './gpio'
 
 class OnionOmega::Stepper
   def initialize(
-    max_steps:,
+    range:,
     pins: [0, 1, 2, 3],
     persist_to_file: nil,
     gpio: OnionOmega::GPIO.new
   )
-    @max_steps = max_steps
+    @range = range
     @pins = pins
     @file = persist_to_file
     @current_step = (@file && File.exists?(@file)) ? File.read(@file).to_i : 0
@@ -24,7 +24,7 @@ class OnionOmega::Stepper
   end
 
   def set_percentage(percentage)
-    desired_step = (percentage * @max_steps).round
+    desired_step = (percentage * @range).round
     steps = desired_step - @current_step
     if steps > 0
       steps.times { forward }
