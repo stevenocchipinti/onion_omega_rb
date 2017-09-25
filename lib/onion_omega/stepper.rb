@@ -5,7 +5,7 @@ class OnionOmega::Stepper
     max_steps:,
     pins: [0, 1, 2, 3],
     persist_to_file: nil,
-    gpio: OnionOmega::GPIO.new(dry_mode: true)
+    gpio: OnionOmega::GPIO.new
   )
     @max_steps = max_steps
     @pins = pins
