@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["dev@stevenocchipinti.com"]
 
   spec.summary       = %q{Control the Onion Omega GPIO pins with Ruby}
-  spec.homepage      = "https://github.com/stevenocchipinti/onion-omega"
+  spec.homepage      = "https://github.com/stevenocchipinti/onion_omega"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
